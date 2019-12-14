@@ -12,6 +12,7 @@
  *        就找到了最小数字，时间复杂度为O(n)
  *      2.利用Arrays工具类里面的排序函数，时间复杂度为O(nlogn)
  *      3.利用优先队列，优先队列默认为最小堆，弹出的第一个数就是数组里最小的数
+ *      4.二分查找变种，
  *
  *
  */
@@ -63,6 +64,26 @@ class Java_06 {
         int len = array.length;
         if (len == 0){
             return 0;
+        }
+
+        int low = 0;
+        int high = array.length;
+
+        while (low <= high){
+            int mid = low + (high - low)/2;
+
+            if (array[low] < array[high]){
+                return array[low];
+            }
+            if (array[mid] > array[mid+1]){
+                return array[mid+1];
+            }
+            if (array[mid] < array[mid-1]){
+                return array[mid];
+            }
+            if (array[mid] > array[low]){
+                low = mid + 1;
+            }
         }
 
         return 0;
