@@ -12,7 +12,9 @@
  *        就找到了最小数字，时间复杂度为O(n)
  *      2.利用Arrays工具类里面的排序函数，时间复杂度为O(nlogn)
  *      3.利用优先队列，优先队列默认为最小堆，弹出的第一个数就是数组里最小的数
- *      4.二分查找变种，
+ *        时间复杂度为O(n)
+ *      4.二分查找变种，那么用中间值和高低位进行比较，看处于递增还是递减序列，
+ *        进行操作缩小范围，处于递增：low上移，处于递减：high下移，时间复杂度为O(logn)
  *
  *
  */
@@ -61,13 +63,12 @@ class Java_06 {
     }
 
     public int minNumberInRotateArray_04(int [] array){
-        int len = array.length;
-        if (len == 0){
+        if (array.length == 0){
             return 0;
         }
 
         int low = 0;
-        int high = array.length;
+        int high = array.length - 1;
 
         while (low <= high){
             int mid = low + (high - low)/2;
@@ -78,12 +79,17 @@ class Java_06 {
             if (array[mid] > array[mid+1]){
                 return array[mid+1];
             }
-            if (array[mid] < array[mid-1]){
+            if (array[mid - 1] > array[mid]){
                 return array[mid];
             }
+
+            //每次low,high只能变一个
             if (array[mid] > array[low]){
                 low = mid + 1;
+            }else if (array[mid] < array[high]){
+                high = mid - 1;
             }
+
         }
 
         return 0;
