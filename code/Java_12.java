@@ -56,7 +56,7 @@ class Java_12 {
             n >>= 1;
         }
 
-        return exponent>0?ans:1/ans;
+        return exponent > 0 ? ans : 1/ans;
     }
 
     public static void main(String[] args) {
