@@ -7,15 +7,15 @@
  *
  *
  *
- * 思路:1.递归实现
- *      2.递归实现_pro,更好理解版
+ * 思路:1.递归实现，中序遍历
+ *      2.递归实现_pro
  *          1.将左子树构造成双链表，并返回链表头节点。
  *          2.定位至左子树双链表最后一个节点。
  *          3.如果左子树链表不为空的话，将当前root追加到左子树链表。
  *          4.将右子树构造成双链表，并返回链表头节点。
  *          5.如果右子树链表不为空的话，将该链表追加到root节点之后。
  *          6.根据左子树链表是否为空确定返回的节点。
- *      3.非递归实现
+ *      3.非递归实现，借助栈实现
  *          1.核心是中序遍历的非递归算法。
  *          2.修改当前遍历节点与前一遍历节点的指针指向。
  *
@@ -24,6 +24,8 @@
  *
  */
 
+
+import java.util.Stack;
 
 class Java_26 {
 
@@ -64,7 +66,7 @@ class Java_26 {
         ConvertHelper(pRootOfTree.right);
     }
 
-    //2.递归实现_pro,更好理解版
+    //2.递归实现_pro
     public TreeNode Convert_02(TreeNode root) {
         if (root == null)
             return null;
@@ -95,7 +97,31 @@ class Java_26 {
 
     //3.非递归实现
     public TreeNode Convert_03(TreeNode root) {
-        return null;
+        if (root == null)
+            return null;
+
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode p = root;
+        TreeNode pre = null;
+        boolean isFirst = true;
+        while (p != null || !stack.isEmpty()) {
+            while (p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+            p = stack.pop();
+            if (isFirst) {
+                root = p;
+                pre = root;
+                isFirst = false;
+            }else {
+                pre.right=p;
+                p.left=pre;
+                pre=p;
+            }
+            p=p.right;
+        }
+        return root;
     }
 
     public static void main(String[] args) {
