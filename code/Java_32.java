@@ -23,7 +23,7 @@ class Java_32 {
 
     public String PrintMinNumber(int [] numbers) {
         if (numbers == null || numbers.length == 0){
-            return null;
+            return "";
         }
         String res = "";
         ArrayList<Integer> list = new ArrayList<>();

@@ -20,10 +20,10 @@ import java.util.PriorityQueue;
 
 class Java_29 {
 
-    public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
+    public ArrayList<Integer> GetLeastNumbers_Solution(int[] input, int k) {
         ArrayList<Integer> res = new ArrayList<>();
         int len = input.length;
-        if (k > len || k <= 0){
+        if (k > len || k <= 0) {
             return res;
         }
 
@@ -35,17 +35,17 @@ class Java_29 {
         });
 
         for (int i = 0; i < len; i++) {
-            if (i < k){
+            if (i < k) {
                 priorityQueue.offer(input[i]);
             } else {
-                if (priorityQueue.peek() > input[i]){
+                if (priorityQueue.peek() > input[i]) {
                     priorityQueue.poll();
                     priorityQueue.offer(input[i]);
                 }
             }
         }
 
-        for (int ans : priorityQueue){
+        for (int ans : priorityQueue) {
             res.add(ans);
         }
 
@@ -53,8 +53,19 @@ class Java_29 {
     }
 
     public static void main(String[] args) {
-        Java_29 java_13 = new Java_29();
+        Java_29 java_29 = new Java_29();
+
+        int[] input = new int[]{4, 5, 1, 6, 2, 7,56,64,11,15,9, 3, 8};
+        ArrayList<Integer> res = new ArrayList<>();
+        res = java_29.GetLeastNumbers_Solution(input, 6);
+        for (int i : res) {
+            System.out.print(i+" ");
+        }
+        System.out.println();
+        for (int i = 0; i < res.size(); i++) {
+            System.out.print(res.get(i)+" ");
+        }
     }
-    
+
 
 }

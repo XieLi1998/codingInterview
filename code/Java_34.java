@@ -18,9 +18,6 @@
 class Java_34 {
 
     public int FirstNotRepeatingChar(String str) {
-        if (str == null || str.length() == 0){
-            return -1;
-        }
         int[] count = new int[58];
         for (int i = 0; i < str.length(); i++) {
             //此处 122 - 64 = 58，会产生越界

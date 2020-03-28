@@ -15,11 +15,10 @@
  */
 
 
-
 class Java_33 {
 
     public int GetUglyNumber_Solution(int index) {
-        if (index <= 0){
+        if (index <= 0) {
             return 0;
         }
         int[] res = new int[index];
@@ -27,15 +26,10 @@ class Java_33 {
         int p2 = 0, p3 = 0, p5 = 0;
         for (int i = 1; i < index; i++) {
             res[i] = Math.min(res[p2] * 2, Math.min(res[p3] * 3, res[p5] * 5));
-            if (res[i] == res[p2] * 2){
-                p2++;
-            }
-            if (res[i] == res[p3] * 3){
-                p3++;
-            }
-            if (res[i] == res[p5] * 5){
-                p5++;
-            }
+            if (res[i] == res[p2] * 2) p2++;
+            if (res[i] == res[p3] * 3) p3++;
+            if (res[i] == res[p5] * 5) p5++;
+
         }
         return res[index - 1];
     }
@@ -44,6 +38,6 @@ class Java_33 {
         Java_33 java_13 = new Java_33();
         System.out.println(java_13.GetUglyNumber_Solution(3));
     }
-    
+
 
 }
