@@ -16,9 +16,34 @@
  */
 
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 class Java_64 {
 
-
+    public ArrayList<Integer> maxInWindows(int[] num, int size) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (num == null || num.length == 0 || size <= 0 || num.length < size)
+            return res;
+        LinkedList<Integer> qmax = new LinkedList<>();
+        int index = 0;
+        //记录最大值的下标
+        for (int i = 0; i < num.length; i++) {
+            while (!qmax.isEmpty() && num[qmax.peekLast()] < num[i]) {
+                qmax.pollLast();
+            }
+            qmax.addLast(i);
+            //判断队首元素是否过期
+            if (qmax.peekFirst() == i - size) {
+                qmax.pollFirst();
+            }
+            //向result列表中加入元素
+            if (i >= size - 1) {
+                res.add(num[qmax.peekFirst()]);
+            }
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
         Java_64 java_49 = new Java_64();
