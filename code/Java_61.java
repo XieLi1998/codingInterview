@@ -9,7 +9,8 @@
  *      二叉树的反序列化是指：根据某种遍历顺序得到的序列化字符串结果str，重构二叉树。
  *
  *
- * 思路:1.
+ * 思路:1.递归遍历二叉树的节点，空节点使用#代替，节点之间使用逗号隔开，返回字符串
+ *      2.设置序号index，将字符串根据逗号分割为数组，根据index的值来设置树节点的val，如果节点的值为#，则返回空的树节点。
  *
  *
  *
@@ -17,10 +18,6 @@
  *
  */
 
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 class Java_61 {
 
@@ -36,12 +33,40 @@ class Java_61 {
 
     }
 
+    int index = -1;
+    /**
+     * 分别遍历左节点和右节点，空使用#代替，节点之间，隔开
+     *
+     * @param root
+     * @return
+     */
     String Serialize(TreeNode root) {
-        return null;
+        if (root == null) {
+            return "#";
+        } else {
+            return root.val + "," + Serialize(root.left) + "," + Serialize(root.right);
+        }
     }
 
+    /**
+     * 使用index来设置树节点的val值，递归遍历左节点和右节点，如果值是#则表示是空节点，直接返回
+     *
+     * @param str
+     * @return
+     */
     TreeNode Deserialize(String str) {
-        return null;
+        String[] strings = str.split(",");
+        index++;
+        int len = strings.length;
+        if (index > len)
+            return null;
+        TreeNode treeNode = null;
+        if (!strings[index].equals("#")) {
+            treeNode = new TreeNode(Integer.parseInt(strings[index]));
+            treeNode.left = Deserialize(str);
+            treeNode.right = Deserialize(str);
+        }
+        return treeNode;
     }
 
     public static void main(String[] args) {
