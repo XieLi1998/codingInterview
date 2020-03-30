@@ -2,13 +2,13 @@
 /*
  * [55] 链表中环的入口结点
  *
- * 题目:请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，
- *      当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。
- *      当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。
- *      如果当前字符流没有存在出现一次的字符，返回#字符。
+ * 题目:给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null
  *
  *
- * 思路:1.
+ * 思路:1.快慢指针,数学结论
+ *      两个结论：1)设置快慢指针，假如有环，他们最后一定相遇。
+ *              2)两个指针分别从链表头和相遇点继续出发，每次走一步，最后一定相遇与环入口。
+ *
  *
  *
  *
@@ -16,35 +16,36 @@
  */
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 class Java_55 {
 
-    HashMap<Character,Integer> map=new HashMap<>();
-    ArrayList<Character> list=new ArrayList<>();
 
-    //Insert one char from stringstream
-    public void Insert(char ch)
-    {
-        if (map.containsKey(ch)){
-            map.put(ch,2);
-        }else {
-            map.put(ch,1);
+    public class ListNode {
+        int val;
+        ListNode next = null;
+
+        ListNode(int val) {
+            this.val = val;
         }
-        list.add(ch);
     }
-    //return the first appearence once char in current stringstream
-    public char FirstAppearingOnce()
-    {
-        char c='#';
-        for(char key:list){
-            if (map.get(key)==1){
-                c=key;
+
+    public ListNode EntryNodeOfLoop(ListNode pHead) {
+        ListNode fast = pHead;
+        ListNode low = pHead;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            low = low.next;
+            if (fast == low) {
                 break;
             }
         }
-        return c;
+        if (fast == null || fast.next == null)
+            return null;
+        low = pHead;
+        while (fast != low) {
+            fast = fast.next;
+            low = low.next;
+        }
+        return low;
     }
 
     public static void main(String[] args) {
